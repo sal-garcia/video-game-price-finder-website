@@ -3,6 +3,7 @@
   font-family: sans-serif;
 }
 
+/* nav bar styles */
 .nav-bar {
   justify-content: space-between;
   background-color: #e6f2fc;
@@ -41,6 +42,7 @@
   font-size: larger;
   background-color: #e6f2fc;
   color: #4582f7;
+  cursor: pointer;
 }
 
 .input-bar {
@@ -50,6 +52,8 @@
   border-color: #dbe4ea;
   border-style: solid;
 }
+
+/* nav bar styles */
 
 ::placeholder {
   font-size: 18px;

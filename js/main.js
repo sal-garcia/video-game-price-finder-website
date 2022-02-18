@@ -1,7 +1,7 @@
 function reqListener() {
-  // console.log(this);// "this" is the xmlhttps request obj
+  // "this" is the xmlhttps request obj
   var gamesArr = JSON.parse(this.responseText);
-  // console.log(gamesArr);
+  // the stringified raw data will be parsed into js code
   var $main = document.querySelector('main');
   for (const game of gamesArr) {
     $main.innerHTML += `
