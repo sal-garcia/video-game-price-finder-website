@@ -35,8 +35,8 @@
 
 .search-button {
   border: solid #4582f7;
-  width: 80px;
-  height: 35px;
+  width: 26%;
+  height: 30px;
   margin-right: 10px;
   border-radius: 5px;
   font-size: larger;
@@ -61,6 +61,7 @@
 
 .dealshark-title {
   color: white;
+  margin-left: 5%;
 }
 
 .page-title {
@@ -86,3 +87,45 @@
 .blue-title {
   color: #95b7e2;
 }
+
+/* phone view */
+@media screen and (max-width: 391px) {/* 390 */
+
+  .left-div-nav {
+    flex-basis: 180px;
+  }
+
+  .input-bar {
+    width: 80px;
+    height: 35px;
+  }
+
+  ::placeholder {
+    font-size: 11px;
+  }
+
+  .search-button {
+    border: solid #4582f7;
+    width: 36%;
+    height: 30px;
+    font-size: small;
+  }
+
+  .page-title {
+    font-size: 15px;
+  }
+
+  .game-info-rows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-deal-width {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* phone view */
