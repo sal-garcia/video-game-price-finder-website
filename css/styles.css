@@ -1,0 +1,135 @@
+.gray-background {
+  background-color: #282828;
+  font-family: sans-serif;
+}
+
+/* nav bar styles */
+.nav-bar {
+  justify-content: space-between;
+  background-color: #e6f2fc;
+  width: 90%;
+  height: 4rem;
+  align-items: center;
+}
+
+.left-div-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 250px;
+}
+
+.home-link {
+  text-decoration: none;
+  color: black;
+  font-size: larger;
+  font-weight: bold;
+  padding-left: 1rem;
+}
+
+.store-info-link {
+  text-decoration: none;
+  color: #5d9af7;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.search-button {
+  border: solid #4582f7;
+  width: 26%;
+  height: 30px;
+  margin-right: 1rem;
+  border-radius: 5px;
+  font-size: larger;
+  background-color: #e6f2fc;
+  color: #4582f7;
+  cursor: pointer;
+}
+
+.input-bar {
+  width: 200px;
+  height: 35px;
+  border-radius: 5px;
+  border-color: #dbe4ea;
+  border-style: solid;
+}
+
+/* nav bar styles */
+
+::placeholder {
+  font-size: 1rem;
+}
+
+.dealshark-title {
+  color: white;
+  margin-left: 5%;
+}
+
+.page-title {
+  margin-top: 20px;
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.game-deal-width {
+  width: 300px;
+  color: white;
+}
+
+.game-deal-image {
+  width: 300px;
+}
+
+.game-info-rows {
+  margin-top: 60px;
+}
+
+.blue-title {
+  color: #95b7e2;
+}
+
+/* phone view */
+@media screen and (max-width: 391px) {/* 390 */
+
+  .left-div-nav {
+    flex-basis: 180px;
+  }
+
+  .input-bar {
+    width: 80px;
+    height: 35px;
+  }
+
+  ::placeholder {
+    font-size: 11px;
+  }
+
+  .search-button {
+    border: solid #4582f7;
+    width: 36%;
+    height: 30px;
+    font-size: small;
+  }
+
+  .page-title {
+    font-size: 1rem;
+  }
+
+  .game-info-rows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-deal-width {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* phone view */
+
+.display-none {
+  display: none;
+}
