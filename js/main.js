@@ -6,7 +6,7 @@ function reqListener() {
 
   var $homeContainer = document.querySelector('.home-container');
   for (const game of gamesArr) {
-    // dom creations
+    // dom creations for home page
     var $outerGameDiv = document.createElement('div');
     $outerGameDiv.setAttribute('class', 'game-info-rows row justify-content-space-around');
     $homeContainer.appendChild($outerGameDiv);
@@ -41,6 +41,7 @@ function reqListener() {
 
   }
 }
+// dom creations for home page
 
 // XMLHTttpResquest
 var oReq = new XMLHttpRequest();
