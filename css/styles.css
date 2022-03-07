@@ -88,6 +88,76 @@
   color: #95b7e2;
 }
 
+/* deal search */
+
+.display-none {
+  display: none;
+}
+
+.column-gap {
+  column-gap: 10px;
+  justify-content: center;
+}
+
+.img-width {
+  width: 300px;
+}
+
+.rows-of-games {
+  display: flex;
+}
+
+.deal-name-color {
+  color: white;
+  text-align: center;
+}
+
+.page-title-search {
+  margin-top: 20px;
+  color: white;
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  display: flex;
+  margin-left: 5rem;
+  margin-bottom: 4rem;
+}
+
+#name {
+  width: 13rem;
+}
+
+#email {
+  width: 13rem;
+}
+
+.name-input-div {
+  margin-bottom: 30px;
+}
+
+.email-input-div {
+  margin-bottom: 30px;
+}
+
+.white {
+  color: white;
+}
+
+.price-drops-title {
+  color: #53a552;
+}
+
+.green-btn {
+  background-color: #53a552;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+/* deal search */
+
 /* phone view */
 @media screen and (max-width: 391px) {/* 390 */
 
@@ -126,10 +196,19 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .rows-of-games {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page-title-search {
+    margin-top: 20px;
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
 }
 
 /* phone view */
-
-.display-none {
-  display: none;
-}

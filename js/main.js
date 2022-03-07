@@ -53,11 +53,13 @@ oReq.send();
 // search bar functionality
 var $Search = document.getElementById('search');
 function searchbtn(e) {
+  // const $dealSearch = document.querySelector('#deal-search');
+  // $dealSearch.classList.remove('display-none');
   // console.log('click');
   var $inputBar = document.querySelector('.input-bar');
   // console.log($inputBar.value);
-  var $gameSearch = document.querySelector('.game-search');
-  $gameSearch.innerHTML = '';
+  var $gameSearchSection = document.querySelector('.game-search');
+  $gameSearchSection.innerHTML = '';
   fetch(`https://www.cheapshark.com/api/1.0/games?title=${$inputBar.value}`)// fetches whatever text in in the inputbar
     .then(function (response) {
       // console.log(response);
@@ -82,7 +84,7 @@ function searchbtn(e) {
 
     .then(function (games) { // second then accesses the body
       // console.log('list of game ids', games);
-      var $gameSearch = document.querySelector('.game-search');
+      var $gameSearchSection = document.querySelector('.game-search');// section
       for (var game in games) {
         // console.log(game);
         const sortedDeals = [...games[game].deals];// spread operator
@@ -93,15 +95,20 @@ function searchbtn(e) {
         });
 
         var $rowsOfGames = document.createElement('div');
-        $rowsOfGames.setAttribute('class', 'row');
+        $rowsOfGames.setAttribute('class', 'rows-of-games column-gap justify-content-center');
         // console.log('sortedDeals:', sortedDeals);
         for (let i = 0; i < sortedDeals.length; i++) {
           // console.log('hello');
+
           var $divContainer = document.createElement('div');
           var $imgDeal = document.createElement('img');
           var $h2DealsName = document.createElement('h2');
+          $h2DealsName.setAttribute('class', 'deal-name-color');
+
           var $h2DealsPrice = document.createElement('h2');
+          $h2DealsPrice.setAttribute('class', 'deal-name-color');
           $imgDeal.src = games[game].info.thumb;
+          $imgDeal.setAttribute('class', 'img-width');
           $divContainer.appendChild($imgDeal);
           // add store information here
           $h2DealsName.textContent = storesNames.find(storesName => {
@@ -111,18 +118,22 @@ function searchbtn(e) {
           $divContainer.appendChild($h2DealsName);
           $divContainer.appendChild($h2DealsPrice);
           $rowsOfGames.appendChild($divContainer);
+
           if ((i + 1) % 3 === 0) {
             // console.log('hello');
-            $gameSearch.appendChild($rowsOfGames);
+            $gameSearchSection.appendChild($rowsOfGames);
             $rowsOfGames = document.createElement('div');
-            $rowsOfGames.setAttribute('class', 'row');
+            $rowsOfGames.setAttribute('class', 'rows-of-games column-gap justify-content-center');
+
           }
         }
         if (sortedDeals.length % 3 !== 0) {
-          $gameSearch.appendChild($rowsOfGames);
+          $gameSearchSection.appendChild($rowsOfGames);
         }
       }
     });
+  var $searchSectionContainer = document.querySelector('.search-section-container');
+  $searchSectionContainer.classList.remove('display-none');
   var $homeContainer = document.querySelector('.home-container');
   $homeContainer.classList.add('display-none');
 }

@@ -14,3 +14,7 @@
 .justify-content-space-around {
   justify-content: space-around;
 }
+
+.justify-items-center {
+  justify-content: center;
+}
