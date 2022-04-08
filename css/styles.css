@@ -125,11 +125,11 @@
   margin-bottom: 4rem;
 }
 
-#name {
+.name {
   width: 13rem;
 }
 
-#email {
+.email {
   width: 13rem;
 }
 
