@@ -7,7 +7,7 @@ function reqListener() {
 
   var $homeContainer = document.querySelector('.home-container');
   for (const game of gamesArr) {
-    // dom creations
+    // dom creations for content in home page
     var $outerGameDiv = document.createElement('div');
     $outerGameDiv.setAttribute('class', 'game-info-rows row justify-content-space-around');
     $homeContainer.appendChild($outerGameDiv);
@@ -53,52 +53,39 @@ oReq.send();
 // search bar functionality
 var $Search = document.getElementById('search');
 function searchbtn(e) {
-  // const $dealSearch = document.querySelector('#deal-search');
-  // $dealSearch.classList.remove('display-none');
-  // console.log('click');
   var $inputBar = document.querySelector('.input-bar');
-  // console.log($inputBar.value);
   var $gameSearchSection = document.querySelector('.game-search');
-  $gameSearchSection.innerHTML = '';
+  $gameSearchSection.innerHTML = ''; // everytime new search is made dom html is cleared so that results wont stack on top of each other
   fetch(`https://www.cheapshark.com/api/1.0/games?title=${$inputBar.value}`)// fetches whatever text in in the inputbar
     .then(function (response) {
-      // console.log(response);
-      // console.log('body', response.body);
-      return response.json(); // first .then makes the body accesable
+      return response.json(); // first .then makes the response body accesible
     })
-    .then(function (games) {
-      // console.log('second ', games);
+    .then(function (gamesInBody) { // second .then moves data in the body
+
       var gameIds = [];
-      for (var i = 0; i < games.length; i++) { // pushes all the game id's into an array
-        // console.log(games[i]);
-        gameIds.push(games[i].gameID);
+      for (var i = 0; i < gamesInBody.length; i++) {
+        gameIds.push(gamesInBody[i].gameID);// pushes game id's into array
       }
       var gameIdString = gameIds.join(',');// joins those ids sepereated by a comma
-      return fetch(`https://www.cheapshark.com/api/1.0/games?ids=${gameIdString}`);// looks up a list of id's
+      return fetch(`https://www.cheapshark.com/api/1.0/games?ids=${gameIdString}`);// looks up a list of games by id's
     })
     .then(function (response) { // first .then makes the body accesable
-      // console.log(response);
-      // console.log('body', response.body);
       return response.json();
+      // console.log(response);
     })
-
-    .then(function (games) { // second then accesses the body
-      // console.log('list of game ids', games);
-      var $gameSearchSection = document.querySelector('.game-search');// section
-      for (var game in games) {
-        // console.log(game);
-        const sortedDeals = [...games[game].deals];// spread operator
-        // console.log('sortedDeals:', sortedDeals);
+    .then(function (listOfgameIds) { // second then accesses the body
+      var $gameSearchSection = document.querySelector('.game-search');
+      for (var game in listOfgameIds) {
+        const sortedDeals = [...listOfgameIds[game].deals];// spread operator(makes copy)
         sortedDeals.sort((firstDeal, secondDeal) => {
-          // console.log('firstDeal:', firstDeal);
+
           return parseFloat(firstDeal.price) - parseFloat(secondDeal.price);
         });
 
-        var $rowsOfGames = document.createElement('div');
+        var $rowsOfGames = document.createElement('div');// dom creation on the games that have been searched
         $rowsOfGames.setAttribute('class', 'rows-of-games column-gap justify-content-center');
-        // console.log('sortedDeals:', sortedDeals);
-        for (let i = 0; i < sortedDeals.length; i++) {
-          // console.log('hello');
+
+        for (let i = 0; i < sortedDeals.length; i++) { // goes thru all the deals and dom creates for it
 
           var $divContainer = document.createElement('div');
           var $imgDeal = document.createElement('img');
@@ -107,11 +94,11 @@ function searchbtn(e) {
 
           var $h2DealsPrice = document.createElement('h2');
           $h2DealsPrice.setAttribute('class', 'deal-name-color');
-          $imgDeal.src = games[game].info.thumb;
+          $imgDeal.src = listOfgameIds[game].info.thumb;
           $imgDeal.setAttribute('class', 'img-width');
           $divContainer.appendChild($imgDeal);
-          // add store information here
-          $h2DealsName.textContent = storesNames.find(storesName => {
+
+          $h2DealsName.textContent = storesNames.find(storesName => { // finds store name
             return storesName.storeID === sortedDeals[i].storeID;
           }).storeName;
           $h2DealsPrice.textContent = sortedDeals[i].price;
@@ -119,12 +106,11 @@ function searchbtn(e) {
           $divContainer.appendChild($h2DealsPrice);
           $rowsOfGames.appendChild($divContainer);
 
-          if ((i + 1) % 3 === 0) {
-            // console.log('hello');
+          if ((i + 1) % 3 === 0) { // makes sure theres only 3 elements per row
+
             $gameSearchSection.appendChild($rowsOfGames);
             $rowsOfGames = document.createElement('div');
             $rowsOfGames.setAttribute('class', 'rows-of-games column-gap justify-content-center');
-
           }
         }
         if (sortedDeals.length % 3 !== 0) {
@@ -138,11 +124,10 @@ function searchbtn(e) {
   $homeContainer.classList.add('display-none');
 }
 $Search.addEventListener('click', searchbtn);
-
+// fetches info for the stores info link
 fetch('https://www.cheapshark.com/api/1.0/stores')
   .then(function (response) {
-    // console.log(response);
-    // console.log('body', response.body);
+
     return response.json(); // first .then makes the body accesable
   })
   .then(function (response) {
