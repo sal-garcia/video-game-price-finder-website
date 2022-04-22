@@ -125,6 +125,9 @@ function searchbtn(e) {
 }
 $Search.addEventListener('click', searchbtn);
 // fetches info for the stores info link
+
+// issue 5 user can view information on he stores that are being compared
+
 fetch('https://www.cheapshark.com/api/1.0/stores')
   .then(function (response) {
 
@@ -133,3 +136,71 @@ fetch('https://www.cheapshark.com/api/1.0/stores')
   .then(function (response) {
     storesNames = response;
   });
+// issue 5 user can view information on he stores that are being compared
+const $homeContainer = document.querySelector('.home-container');
+const $searchSectionContainer = document.querySelector('.search-section-container');
+const $storeInfoContainer = document.querySelector('.store-info-container');
+window.onload = function () { // on load for dom
+  const $homeLink = document.querySelector('.home-link');
+  $homeLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    $storeInfoContainer.classList.add('display-none');
+    $searchSectionContainer.classList.add('display-none');
+    $homeContainer.classList.remove('display-none');
+  });
+  const $storeInfoLink = document.querySelector('.store-info-link');
+  $storeInfoLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    $storeInfoContainer.classList.remove('display-none');
+    $searchSectionContainer.classList.add('display-none');
+    $homeContainer.classList.add('display-none');
+
+    let storesNamesForStoreInfo = [];
+    fetch('https://www.cheapshark.com/api/1.0/stores')
+      .then(function (response) {
+
+        return response.json(); // first .then makes the body accesable
+      })
+      .then(function (response) {
+        storesNamesForStoreInfo = response;
+        const storesInfoPageTitle = document.createElement('h1');
+        storesInfoPageTitle.innerText = 'Stores Information';
+        $storeInfoContainer.appendChild(storesInfoPageTitle);
+        $storeInfoContainer.classList.add('stores-page-title');
+        let divRowStoresInfo = document.createElement('div');
+        divRowStoresInfo.classList.add('store-info-row');
+        divRowStoresInfo.classList.add('justify-content-space-around');
+
+        for (let i = 0; i < storesNamesForStoreInfo.length; i++) {
+
+          const divStackForStoreInfo = document.createElement('div');
+          const storeInfoImg = document.createElement('img');
+          storeInfoImg.setAttribute('src', 'https://www.cheapshark.com' + storesNamesForStoreInfo[i].images.logo);
+
+          divStackForStoreInfo.appendChild(storeInfoImg);
+          const storeInfoTitle = document.createElement('h2');
+          storeInfoTitle.classList.add('stores-titles');
+          storeInfoTitle.innerText = storesNamesForStoreInfo[i].storeName;
+          divStackForStoreInfo.appendChild(storeInfoTitle);
+
+          divRowStoresInfo.appendChild(divStackForStoreInfo);
+          if ((i + 1) % 3 === 0) {
+
+            $storeInfoContainer.appendChild(divRowStoresInfo);
+
+            divRowStoresInfo = document.createElement('div');
+            divRowStoresInfo.classList.add('store-info-row');
+            divRowStoresInfo.classList.add('justify-content-space-around');
+
+          }
+
+        }
+
+      });
+
+  });
+};
+// issue 5 user can view information on he stores that are being compared
+
+// user can get alerts when a game drops in price
+// user can get alerts when a game drops in price

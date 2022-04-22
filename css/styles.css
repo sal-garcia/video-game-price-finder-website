@@ -159,6 +159,24 @@
 
 /* deal search */
 
+/* store info */
+.stores-page-title {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.store-info-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.stores-titles {
+  font-size: 2rem;
+}
+
+/* store info */
+
 /* phone view */
 @media screen and (max-width: 391px) {/* 390 */
 
@@ -209,6 +227,14 @@
     color: white;
     font-size: 3rem;
     margin-bottom: 20px;
+  }
+
+  .store-info-row {
+    flex-direction: column;
+  }
+
+  .stores-page-title {
+    font-size: 1rem;
   }
 }
 
