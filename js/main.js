@@ -53,6 +53,8 @@ oReq.send();
 // search bar functionality
 var $Search = document.getElementById('search');
 function searchbtn(e) {
+  const $storeInfoContainer = document.querySelector('.store-info-container');
+  $storeInfoContainer.classList.add('display-none');
   var $inputBar = document.querySelector('.input-bar');
   var $gameSearchSection = document.querySelector('.game-search');
   $gameSearchSection.innerHTML = ''; // everytime new search is made dom html is cleared so that results wont stack on top of each other
@@ -71,11 +73,11 @@ function searchbtn(e) {
     })
     .then(function (response) { // first .then makes the body accesable
       return response.json();
-      // console.log(response);
+
     })
     .then(function (listOfgameIds) { // second then accesses the body
-      var $gameSearchSection = document.querySelector('.game-search');
-      for (var game in listOfgameIds) {
+      const $gameSearchSection = document.querySelector('.game-search');
+      for (const game in listOfgameIds) {
         const sortedDeals = [...listOfgameIds[game].deals];// spread operator(makes copy)
         sortedDeals.sort((firstDeal, secondDeal) => {
 
@@ -88,6 +90,7 @@ function searchbtn(e) {
         for (let i = 0; i < sortedDeals.length; i++) { // goes thru all the deals and dom creates for it
 
           var $divContainer = document.createElement('div');
+          $divContainer.classList.add('text-align-center');
           var $imgDeal = document.createElement('img');
           var $h2DealsName = document.createElement('h2');
           $h2DealsName.setAttribute('class', 'deal-name-color');
@@ -102,8 +105,23 @@ function searchbtn(e) {
             return storesName.storeID === sortedDeals[i].storeID;
           }).storeName;
           $h2DealsPrice.textContent = sortedDeals[i].price;
+          const btnGamePriceStorage = document.createElement('button');
+          btnGamePriceStorage.classList.add('btn-local-storage');
+          btnGamePriceStorage.innerHTML = 'save price';
+          btnGamePriceStorage.addEventListener('click', function (event) {
+
+            const existingGamesPrice = JSON.parse(localStorage.getItem('savedGames'));
+            existingGamesPrice.push({
+              id: game,
+              title: listOfgameIds[game].info.title,
+              price: sortedDeals[i].price
+            });
+            localStorage.setItem('savedGames', JSON.stringify(existingGamesPrice));
+          });
+
           $divContainer.appendChild($h2DealsName);
           $divContainer.appendChild($h2DealsPrice);
+          $divContainer.appendChild(btnGamePriceStorage);
           $rowsOfGames.appendChild($divContainer);
 
           if ((i + 1) % 3 === 0) { // makes sure theres only 3 elements per row
@@ -141,6 +159,64 @@ const $homeContainer = document.querySelector('.home-container');
 const $searchSectionContainer = document.querySelector('.search-section-container');
 const $storeInfoContainer = document.querySelector('.store-info-container');
 window.onload = function () { // on load for dom
+  let existingGames = JSON.parse(localStorage.getItem('savedGames'));
+  if (!existingGames) {
+    localStorage.setItem('savedGames', JSON.stringify([]));
+    existingGames = [];
+  }
+
+  let gameIds = '';
+  for (let i = 0; i < existingGames.length; i++) {
+    gameIds = gameIds + existingGames[i].id + ',';
+  }
+  gameIds = gameIds.substring(0, gameIds.length - 1);
+  fetch(`https://www.cheapshark.com/api/1.0/games?ids=${gameIds}`).then(function (response) {
+    return response.json();
+  }).then(function (response) {
+
+    const $modal = document.createElement('div');// or alert?
+    $modal.classList.add('column');
+    $modal.classList.add('modal');
+
+    for (const game in response) {
+      const sortedDeals = [...response[game].deals];// spread operator(makes copy)
+      sortedDeals.sort((firstDeal, secondDeal) => {
+
+        return parseFloat(firstDeal.price) - parseFloat(secondDeal.price);
+      });
+      const newDeal = sortedDeals[0].price;
+      const storedGame = existingGames.filter(function (existingGame) {
+        return existingGame.id === game;
+      })[0];
+      const storedDeal = storedGame.price;
+      const title = storedGame.title;
+      // modal
+
+      const $gameDrop = document.createElement('h2');
+
+      const $okBtn = document.createElement('button');
+      $okBtn.innerText = 'OK';
+      $okBtn.classList.add('modal-btn');
+      $homeContainer.appendChild($modal);
+      $modal.appendChild($gameDrop);
+      $modal.appendChild($okBtn);
+
+      $okBtn.addEventListener('click', function (event) {
+        $modal.classList.add('display-none');
+        localStorage.setItem('savedGames', JSON.stringify([]));
+      });
+
+      // modal
+
+      if (parseFloat(newDeal) <= parseFloat(storedDeal)) {
+        $gameDrop.textContent = `${title} is now $${newDeal}`;
+      } else {
+
+        $modal.classList.add('display-none');
+      }
+
+    }
+  });
   const $homeLink = document.querySelector('.home-link');
   $homeLink.addEventListener('click', function (event) {
     event.preventDefault();
@@ -200,7 +276,3 @@ window.onload = function () { // on load for dom
 
   });
 };
-// issue 5 user can view information on he stores that are being compared
-
-// user can get alerts when a game drops in price
-// user can get alerts when a game drops in price
