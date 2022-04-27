@@ -107,7 +107,7 @@ function searchbtn(e) {
           $h2DealsPrice.textContent = sortedDeals[i].price;
           const btnGamePriceStorage = document.createElement('button');
           btnGamePriceStorage.classList.add('btn-local-storage');
-          btnGamePriceStorage.innerHTML = 'save price';
+          btnGamePriceStorage.textContent = 'save price';
           btnGamePriceStorage.addEventListener('click', function (event) {
 
             const existingGamesPrice = JSON.parse(localStorage.getItem('savedGames'));
