@@ -58,15 +58,27 @@ function searchbtn(e) {
   var $inputBar = document.querySelector('.input-bar');
   var $gameSearchSection = document.querySelector('.game-search');
   $gameSearchSection.innerHTML = ''; // everytime new search is made dom html is cleared so that results wont stack on top of each other
+
+  const $test = document.querySelector('.not-found')
+  $test.innerText = 'loading'
+
   fetch(`https://www.cheapshark.com/api/1.0/games?title=${$inputBar.value}`)// fetches whatever text in in the inputbar
     .then(function (response) {
       return response.json(); // first .then makes the response body accesible
     })
     .then(function (gamesInBody) { // second .then moves data in the body
-
       var gameIds = [];
+      const $test = document.querySelector('.not-found')
+
+      // var gameIds = [];
       for (var i = 0; i < gamesInBody.length; i++) {
         gameIds.push(gamesInBody[i].gameID);// pushes game id's into array
+      }
+      if (gameIds.length === 0) {
+        $test.innerText = 'Nothing was found...';
+
+      }else{
+        $test.innerText=''
       }
       var gameIdString = gameIds.join(',');// joins those ids sepereated by a comma
       return fetch(`https://www.cheapshark.com/api/1.0/games?ids=${gameIdString}`);// looks up a list of games by id's
@@ -238,6 +250,7 @@ window.onload = function () { // on load for dom
         return response.json(); // first .then makes the body accesable
       })
       .then(function (response) {
+
         storesNamesForStoreInfo = response;
         const storesInfoPageTitle = document.createElement('h1');
         storesInfoPageTitle.innerText = 'Stores Information';
@@ -247,7 +260,10 @@ window.onload = function () { // on load for dom
         divRowStoresInfo.classList.add('store-info-row');
         divRowStoresInfo.classList.add('justify-content-space-around');
 
+
+
         for (let i = 0; i < storesNamesForStoreInfo.length; i++) {
+
 
           const divStackForStoreInfo = document.createElement('div');
           const storeInfoImg = document.createElement('img');

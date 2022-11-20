@@ -157,6 +157,12 @@
   height: 25px;
 }
 
+.not-found{
+  color: white;
+  size: 200px;
+  text-align: center;
+}
+
 /* deal search */
 
 /* store info */
@@ -211,6 +217,7 @@
   color: white;
   height: 25px;
   margin-bottom: 5%;
+  cursor: pointer;
 }
 
 /* modal */
