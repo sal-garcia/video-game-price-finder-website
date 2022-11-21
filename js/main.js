@@ -70,7 +70,7 @@ function searchbtn(e) {
       var gameIds = [];
       const $test = document.querySelector('.not-found')
 
-      // var gameIds = [];
+
       for (var i = 0; i < gamesInBody.length; i++) {
         gameIds.push(gamesInBody[i].gameID);// pushes game id's into array
       }
@@ -153,7 +153,7 @@ function searchbtn(e) {
   var $homeContainer = document.querySelector('.home-container');
   $homeContainer.classList.add('display-none');
 }
-$Search.addEventListener('click', searchbtn);
+$Search.addEventListener('submit', searchbtn);
 // fetches info for the stores info link
 
 // issue 5 user can view information on he stores that are being compared
