@@ -70,7 +70,7 @@ function searchbtn(e) {
       var gameIds = [];
       const $test = document.querySelector('.not-found')
 
-      // var gameIds = [];
+
       for (var i = 0; i < gamesInBody.length; i++) {
         gameIds.push(gamesInBody[i].gameID);// pushes game id's into array
       }
