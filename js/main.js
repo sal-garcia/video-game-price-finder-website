@@ -153,7 +153,7 @@ function searchbtn(e) {
   var $homeContainer = document.querySelector('.home-container');
   $homeContainer.classList.add('display-none');
 }
-$Search.addEventListener('click', searchbtn);
+$Search.addEventListener('submit', searchbtn);
 // fetches info for the stores info link
 
 // issue 5 user can view information on he stores that are being compared
