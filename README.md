@@ -1,3 +1,3 @@
-# ajax-project
+# video game price finder
 
-A dynamic HTML, CSS, and JavaScript solo project.
+A web application for gamers who want to save money..
