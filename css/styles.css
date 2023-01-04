@@ -223,7 +223,7 @@
 /* modal */
 
 /* phone view */
-@media screen and (max-width: 391px) {/* 390 */
+@media screen and (max-width: 542px) {/* 390 */
 
   .left-div-nav {
     flex-basis: 180px;
