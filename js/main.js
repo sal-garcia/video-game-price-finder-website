@@ -53,8 +53,7 @@ oReq.send();
 // search bar functionality
 var $Search = document.getElementById('search');
 function searchbtn(e) {
-  console.log('did it hit this?');
-
+  e.preventDefault();
   const $storeInfoContainer = document.querySelector('.store-info-container');
   $storeInfoContainer.classList.add('display-none');
   var $inputBar = document.querySelector('.input-bar');
@@ -69,7 +68,6 @@ function searchbtn(e) {
       return response.json(); // first .then makes the response body accesible
     })
     .then(function (gamesInBody) { // second .then moves data in the body
-      console.log(gamesInBody,'gamesinbody')
       var gameIds = [];
       const $test = document.querySelector('.not-found')
 
